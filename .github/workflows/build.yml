@@ -1,0 +1,42 @@
+name: Build Electron App
+
+on:
+  push:
+    branches:
+      - master   # 这里改成 master
+  pull_request:
+    branches:
+      - master   # 如果也想在 PR 到 master 时触发，可以加这一行
+
+jobs:
+  build-mac:
+    name: Build macOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install
+      - run: npm run dist
+      - uses: actions/upload-artifact@v3
+        with:
+          name: macOS-build
+          path: dist/*.dmg
+
+  build-windows:
+    name: Build Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install
+      - run: npm run dist
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Windows-build
+          path: dist/*.exe
