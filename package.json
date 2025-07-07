@@ -13,6 +13,7 @@
   "build": {
     "appId": "com.admin.iosdata",
     "productName": "iOS数据后台",
+    "publish": null,
     "mac": {
       "target": [
         "dmg"
